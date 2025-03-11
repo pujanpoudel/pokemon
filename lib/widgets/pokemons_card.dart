@@ -66,12 +66,12 @@ class PokemonCard extends ConsumerWidget {
                   children: [
                     Text(
                       pokemon?.name?.toUpperCase() ?? "pokemon",
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),
                     Text(
                       "#${pokemon?.id?.toString()}",
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),
                   ],
@@ -88,14 +88,14 @@ class PokemonCard extends ConsumerWidget {
                   children: [
                     Text(
                       "${pokemon?.moves?.length} Moves",
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                     ),
                     GestureDetector(
                       onTap: () {
                         _favouritePokemonsProvider
                             .removeFavouritePokemon(pokemonURL);
                       },
-                      child: Icon(
+                      child: const Icon(
                         Icons.favorite,
                         color: Colors.red,
                       ),

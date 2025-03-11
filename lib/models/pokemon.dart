@@ -74,16 +74,17 @@ class Pokemon {
   List<Stats>? stats;
   int? weight;
 
-  Pokemon(
-      {this.abilities,
-      this.height,
-      this.id,
-      this.moves,
-      this.name,
-      this.species,
-      this.sprites,
-      this.stats,
-      this.weight});
+  Pokemon({
+    this.abilities,
+    this.height,
+    this.id,
+    this.moves,
+    this.name,
+    this.species,
+    this.sprites,
+    this.stats,
+    this.weight,
+  });
 
   Pokemon.fromJson(Map<String, dynamic> json) {
     if (json['abilities'] != null) {
@@ -268,6 +269,7 @@ class Stats {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['base_stat'] = baseStat;
     data['effort'] = effort;
+    // data['comment'] = comment;
     if (stat != null) {
       data['stat'] = stat!.toJson();
     }
