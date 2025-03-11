@@ -8,7 +8,7 @@ import 'package:test/services/http_service.dart';
 
 void main() async {
   await _setupServices();
-  runApp(ProviderScope(child: MyApp()));
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 Future<void> _setupServices() async {
@@ -19,7 +19,6 @@ Future<void> _setupServices() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -30,7 +29,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         textTheme: GoogleFonts.quattrocentoTextTheme(),
       ),
-      home: HomePage(),
+      home: const HomePage(),
     );
   }
 }

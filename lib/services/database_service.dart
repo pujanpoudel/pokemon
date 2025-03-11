@@ -24,4 +24,26 @@ class DatabaseService {
     }
     return null;
   }
+
+  Future<bool?> saveComments(String key, List<String> value) async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      bool result = await prefs.setStringList(key, value);
+      return result;
+    } catch (e) {
+      print(e);
+    }
+    return false;
+  }
+
+  Future<List<String>?> getComments(String key) async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      List<String>? comments = await prefs.getStringList(key);
+      return comments;
+    } catch (e) {
+      print(e);
+    }
+    return null;
+  }
 }

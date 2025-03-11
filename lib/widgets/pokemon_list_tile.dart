@@ -31,8 +31,7 @@ class PokemonListTile extends ConsumerWidget {
       enabled: isLoading,
       child: GestureDetector(
         onTap: () {
-          // var _favouritePokemonsa = _favouritePokemons;
-          // print("object");
+          print("data");
           if (!isLoading) {
             showDialog(
                 context: context,
@@ -54,8 +53,7 @@ class PokemonListTile extends ConsumerWidget {
                 ? pokemon.name!.toUpperCase()
                 : "currently loading name for pokemon",
           ),
-          subtitle: Text(
-              "${_favouritePokemons.length} has ${pokemon?.moves?.length.toString() ?? 0} moves"),
+          subtitle: Text("has ${pokemon?.moves?.length.toString() ?? 0} moves"),
           trailing: IconButton(
               onPressed: () {
                 if (_favouritePokemons.contains(pokemonURL)) {

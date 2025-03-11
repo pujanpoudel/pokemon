@@ -20,6 +20,11 @@ final favouritePokemonsProvider =
   return FavouritePokemonsProvider([]);
 });
 
+final pokemonCommentsProvider =
+    StateNotifierProvider<PokemonCommentsProvider, List<String>>((ref) {
+  return PokemonCommentsProvider([]);
+});
+
 class FavouritePokemonsProvider extends StateNotifier<List<String>> {
   final DatabaseService _databaseService =
       GetIt.instance.get<DatabaseService>();
@@ -47,5 +52,29 @@ class FavouritePokemonsProvider extends StateNotifier<List<String>> {
   void removeFavouritePokemon(String url) {
     state = state.where((e) => e != url).toList();
     _databaseService.saveLikedList(FAVOURITE_POKEMON_LIST_KEY, state);
+  }
+}
+
+class PokemonCommentsProvider extends StateNotifier<List<String>> {
+  final DatabaseService _databaseService =
+      GetIt.instance.get<DatabaseService>();
+
+  String POKEMON_COMMENT_LIST_KEY = "POKEMON_COMMENT_LIST_KEY";
+
+  PokemonCommentsProvider(
+    super._state,
+  ) {
+    _setup();
+  }
+  Future<void> _setup() async {
+    List<String>? commentsOnPokemon = await _databaseService.getComments(
+      POKEMON_COMMENT_LIST_KEY,
+    );
+    state = commentsOnPokemon ?? [];
+  }
+
+  void addComments(String url) {
+    state = [...state, url];
+    _databaseService.saveComments(POKEMON_COMMENT_LIST_KEY, state);
   }
 }
