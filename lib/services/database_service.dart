@@ -1,7 +1,13 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import '../models/pokemon.dart';
+import '../providers/pokemon_data_providers.dart';
+
+final PokemonListResult _pokemon = PokemonListResult();
 
 class DatabaseService {
   DatabaseService();
+
+  final pokemonId = _pokemon.url;
 
   Future<bool?> saveLikedList(String key, List<String> value) async {
     try {
@@ -25,10 +31,10 @@ class DatabaseService {
     return null;
   }
 
-  Future<bool?> saveComments(String key, List<String> value) async {
+  Future<bool?> saveComments(String id, List<String> value) async {
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-      bool result = await prefs.setStringList(key, value);
+      bool result = await prefs.setStringList(pokemonId!, value);
       return result;
     } catch (e) {
       print(e);
@@ -36,10 +42,10 @@ class DatabaseService {
     return false;
   }
 
-  Future<List<String>?> getComments(String key) async {
+  Future<List<String>?> getComments(String id) async {
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-      List<String>? comments = await prefs.getStringList(key);
+      List<String>? comments = await prefs.getStringList(pokemonId!);
       return comments;
     } catch (e) {
       print(e);

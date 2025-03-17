@@ -90,7 +90,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             "favourites",
             style: TextStyle(fontSize: 25),
           ),
@@ -130,7 +130,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             'All Pokemon',
             style: TextStyle(fontSize: 25),
           ),
@@ -140,7 +140,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 controller: _allPokemonListScrollController,
                 itemCount: _homePageData.data?.results?.length ?? 0,
                 itemBuilder: (context, index) {
-                  PokemonListResult pokemon =
+                  final PokemonListResult pokemon =
                       _homePageData.data!.results![index];
                   return PokemonListTile(
                     pokemonURL: pokemon.url!,

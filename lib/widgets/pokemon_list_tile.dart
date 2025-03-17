@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:test/models/pokemon.dart';
 import 'package:test/providers/pokemon_data_providers.dart';
+import 'package:test/services/database_service.dart';
 import 'package:test/widgets/pokemon_stats.dart';
 
 class PokemonListTile extends ConsumerWidget {
@@ -10,6 +11,7 @@ class PokemonListTile extends ConsumerWidget {
 
   late FavouritePokemonsProvider _favouritePokemonProvider;
   late List<String> _favouritePokemons;
+  final DatabaseService _databaseService = DatabaseService();
 
   PokemonListTile({super.key, required this.pokemonURL});
   @override
@@ -31,6 +33,7 @@ class PokemonListTile extends ConsumerWidget {
       enabled: isLoading,
       child: GestureDetector(
         onTap: () {
+          _databaseService.getComments(pokemonURL);
           print("data");
           if (!isLoading) {
             showDialog(
@@ -47,7 +50,7 @@ class PokemonListTile extends ConsumerWidget {
                     pokemon.sprites!.frontDefault!,
                   ),
                 )
-              : CircleAvatar(),
+              : const CircleAvatar(),
           title: Text(
             pokemon != null
                 ? pokemon.name!.toUpperCase()

@@ -3,12 +3,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:test/models/pokemon.dart';
 import 'package:test/providers/pokemon_data_providers.dart';
+import 'package:test/services/database_service.dart';
 import 'package:test/widgets/pokemon_stats.dart';
 
 class PokemonCard extends ConsumerWidget {
   final String pokemonURL;
 
   late FavouritePokemonsProvider _favouritePokemonsProvider;
+  final DatabaseService _databaseService = DatabaseService();
 
   PokemonCard({super.key, required this.pokemonURL});
 
@@ -32,6 +34,7 @@ class PokemonCard extends ConsumerWidget {
       enabled: isLoading,
       child: GestureDetector(
         onTap: () {
+          _databaseService.getComments(pokemon!.id.toString());
           if (!isLoading) {
             showDialog(
                 context: context,
@@ -80,7 +83,7 @@ class PokemonCard extends ConsumerWidget {
                     child: CircleAvatar(
                         radius: MediaQuery.sizeOf(context).height * 0.05,
                         backgroundImage: pokemon != null
-                            ? NetworkImage(pokemon!.sprites!.frontDefault!)
+                            ? NetworkImage(pokemon.sprites!.frontDefault!)
                             : null)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

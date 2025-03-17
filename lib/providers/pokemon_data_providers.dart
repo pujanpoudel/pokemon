@@ -15,6 +15,8 @@ final pokemonDataProvider =
   return null;
 });
 
+final PokemonListResult _pokemon = PokemonListResult();
+
 final favouritePokemonsProvider =
     StateNotifierProvider<FavouritePokemonsProvider, List<String>>((ref) {
   return FavouritePokemonsProvider([]);
@@ -30,7 +32,7 @@ class FavouritePokemonsProvider extends StateNotifier<List<String>> {
       GetIt.instance.get<DatabaseService>();
 
   String FAVOURITE_POKEMON_LIST_KEY = "FAVOURITE_POKEMON_LIST_KEY";
-  String POKEMON_COMMENT_LIST_KEY = "POKEMON_COMMENT_LIST_KEY";
+  // String POKEMON_COMMENT_LIST_KEY = "POKEMON_COMMENT_LIST_KEY";
 
   FavouritePokemonsProvider(
     super._state,
@@ -59,7 +61,7 @@ class PokemonCommentsProvider extends StateNotifier<List<String>> {
   final DatabaseService _databaseService =
       GetIt.instance.get<DatabaseService>();
 
-  String POKEMON_COMMENT_LIST_KEY = "POKEMON_COMMENT_LIST_KEY";
+  final pokemonId = _pokemon.url;
 
   PokemonCommentsProvider(
     super._state,
@@ -67,14 +69,18 @@ class PokemonCommentsProvider extends StateNotifier<List<String>> {
     _setup();
   }
   Future<void> _setup() async {
-    List<String>? commentsOnPokemon = await _databaseService.getComments(
-      POKEMON_COMMENT_LIST_KEY,
-    );
+    List<String>? commentsOnPokemon =
+        await _databaseService.getComments(pokemonId!);
     state = commentsOnPokemon ?? [];
   }
 
-  void addComments(String url) {
-    state = [...state, url];
-    _databaseService.saveComments(POKEMON_COMMENT_LIST_KEY, state);
+  void addComments(String pokemonId, String comment) {
+    state = [...state, comment];
+    _databaseService.saveComments(pokemonId, state);
+  }
+
+  Future<List<String>?> getComments(String pokemonId) {
+    var state = _databaseService.getComments(pokemonId);
+    return state;
   }
 }
